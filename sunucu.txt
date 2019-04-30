@@ -1,0 +1,36 @@
+CREATE DATABASE noterApi;
+CREATE USER kullanici_adi WITH PASSWORD '1';
+ALTER ROLE yunus SET client_encoding TO 'utf8';
+ALTER ROLE yunus SET default_transaction_isolation TO 'read committed';
+ALTER ROLE yunus SET timezone TO 'Europe/Istanbul';
+GRANT ALL PRIVILEGES ON DATABASE noterApi TO yunus;
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'noterApi',
+        'USER': 'yunus',
+        'PASSWORD': '1',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+sudo nano /etc/nginx/sites-available/noterapi
+
+server {
+    listen 80;
+    server_name 192.168.182.128;
+    root /home/yunus/TurkerApi; 
+
+    location /static/ {
+    }
+
+    location /media/ {
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/yunus/TurkerApi/TurkerApi.sock; 
+    }
+}
+sudo ln -s /etc/nginx/sites-available/noterapi /etc/nginx/sites-enabled
