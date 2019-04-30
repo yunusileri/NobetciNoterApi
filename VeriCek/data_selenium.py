@@ -5,7 +5,8 @@ from selenium.webdriver.chrome.options import Options
 
 
 def data_get(tarih, sehir):
-    chrome_options = Options()
+    # chrome_options = Options()
+    chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument("--headless")
     driver_path = r'/Users/mac16/Desktop/yunusileri/TurkerApi/chromedriver'
     browser = webdriver.Chrome(executable_path=driver_path, chrome_options=chrome_options)
